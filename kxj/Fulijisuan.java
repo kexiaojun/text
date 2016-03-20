@@ -47,7 +47,7 @@ public class Fulijisuan {
 	 	 System.out.println("请输入年利率: ");
 	 	 i=scanner.nextDouble();
 	 	 n=Logarithm.log(f/p,1+i);
-	 	 n=Math.ceil(n);
+	 	 //n=Math.ceil(n);
 	 	 System.out.println("需要存的年数为: "+Math.ceil(n));	 
 	}
 	
@@ -66,37 +66,49 @@ public class Fulijisuan {
 	
 	//计算本利之和连同年金投资后的总资产
 	public static void Nianjin(){
-		 int k=1;
-		 f=0;
 		 Scanner scanner=new Scanner(System.in);
-	 	 System.out.println("请输入本金: ");
-	 	 p=scanner.nextDouble();
+	 	 System.out.println("请输入每年定投资金: ");
+	 	 p=scanner.nextDouble(); 
 	 	 System.out.println("请输入年利率: ");
 	 	 i=scanner.nextDouble();
 	 	 System.out.println("请输入年数: ");
 	 	 n=scanner.nextInt();
-	 	 while(k<=n){
-	 		 p=p+f;
-	 		 f=p*(1+i);
-	 		 k++;
-	 	 }
-	 	System.out.println("年资产总值为："+(int)f);
+	 	 f=p*(1+i)*(Math.pow(1+i,n)-1)/i;
+	 	 System.out.println("年资产总值为："+(double)(Math.round(f*100)/100.0));     
 	}
 	
+	//计算每月等额本息还款
+	public static void BenxiHuankuan(){
+		double f,i,p;
+		int n;
+		 Scanner scanner=new Scanner(System.in);
+	 	 System.out.println("请输入贷款金额: ");
+	 	 f=scanner.nextDouble();
+	 	 System.out.println("请输入年利率: ");
+	 	 i=scanner.nextDouble();
+	 	 System.out.println("请输入贷款年数: ");
+	 	 n=scanner.nextInt();
+	 	 i=i/12;
+	 	 n=n*12;
+	 	 p=f*i*Math.pow(1+i, n)/(Math.pow(1+i, n)-1);
+		 System.out.println("每月等额本息还款为："+(double)(Math.round(p*10000)/10000.0));
+		
+	}
  
  	public static void main(String[] args) {
  		int choice;
  		while(true){
- 		System.out.println("\t\t|*******************|");
- 		System.out.println("\t\t|  1.求本金                         |");
- 		System.out.println("\t\t|  2.求本息和                    |");
- 		System.out.println("\t\t|  3.求年数                         |");
-		System.out.println("\t\t|  4.求利率                         |");
-		System.out.println("\t\t|  5.求年资产总值          |");
- 		System.out.println("\t\t|  6.退出              |");
- 		System.out.println("\t\t|*************|");
+ 		System.out.println("\t\t|***********************|");
+ 		System.out.println("\t\t|  1. 求       本      金  \t|");
+ 		System.out.println("\t\t|  2. 求   本   息   和 \t|");
+ 		System.out.println("\t\t|  3. 求      年       数 \t|");
+		System.out.println("\t\t|  4. 求      利       率 \t|");
+		System.out.println("\t\t|  5. 求年资产总值\t|");
+		System.out.println("\t\t|  6. 求等额本息还款\t|");	
+ 		System.out.println("\t\t|  7. 退        出          \t|");
+ 		System.out.println("\t\t|***********************|");
  		Scanner scanner=new Scanner(System.in);
- 		System.out.println("请输入你的选择(1~6):  ");
+ 		System.out.println("\n请输入你的选择(1~7):  ");
  		choice=scanner.nextInt();
  		switch(choice){
  		case 1:
@@ -115,6 +127,10 @@ public class Fulijisuan {
  			Nianjin();
  			break;
  		case 6:
+ 			BenxiHuankuan();
+ 			break;
+ 		case 7:
+ 			System.out.println("Thanks for using!");
  			System.exit(0);
  			break;
  			default:
